@@ -491,6 +491,14 @@
         transform: translateZ(0);
       }
     }
+    /* Make in-page anchor links account for sticky header height */
+    .section {
+      scroll-margin-top: 90px; /* adjust this if you change header height */
+    }
+    
+    .hero {
+      scroll-margin-top: 90px;
+    }
   </style>
 </head>
 <body>
@@ -804,15 +812,14 @@
 </div>
 
 <script>
-  // AJAX form submit to Formspree with custom redirect
   (function () {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
 
     if (!form) return;
 
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault(); // stop normal form submit
+    async function handleSubmit(event) {
+      event.preventDefault();
 
       if (status) {
         status.textContent = 'Sending...';
@@ -824,22 +831,32 @@
         const response = await fetch(form.action, {
           method: 'POST',
           body: data,
-          headers: { 'Accept': 'application/json' }
+          headers: {
+            'Accept': 'application/json'
+          }
         });
 
         if (response.ok) {
+          // This is where we redirect to the thank-you page
           window.location.href = '/thanks.html';
         } else {
+          const resData = await response.json().catch(() => ({}));
           if (status) {
-            status.textContent = 'Something went wrong. Please try again or email me at kelanlee@summitfinancialanalytics.com.';
+            if (resData && resData.errors) {
+              status.textContent = resData.errors.map(e => e.message).join(', ');
+            } else {
+              status.textContent = 'Something went wrong sending the form. Please email me at kelanlee@summitfinancialanalytics.com.';
+            }
           }
         }
       } catch (err) {
         if (status) {
-          status.textContent = 'Network error. Please check your connection or email me directly at kelanlee@summitfinancialanalytics.com.';
+          status.textContent = 'Network error. Please try again or email me directly at kelanlee@summitfinancialanalytics.com.';
         }
       }
-    });
+    }
+
+    form.addEventListener('submit', handleSubmit);
   })();
 </script>
 </body>
