@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Summit Financial Analytics LLC is a private commercial real estate investment company focused on income-producing assets such as apartments, RV parks, and storage facilities." />
   <meta name="robots" content="index, follow" />
+
   <style>
     :root {
       --bg: #020617;
@@ -18,7 +19,11 @@
       --shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
@@ -28,16 +33,28 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .page { min-height: 100vh; display: flex; flex-direction: column; }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
     header {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.65), transparent);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.65),
+        transparent
+      );
       border-bottom: 1px solid rgba(31, 41, 55, 0.7);
     }
 
@@ -48,9 +65,46 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
     }
 
-    .nav-left { display: flex; align-items: center; gap: 10px; }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Brand link with premium hover */
+    .brand-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      transform-style: preserve-3d;
+    }
+
+    .brand-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: linear-gradient(to right, #38bdf8, #93c5fd);
+      transition: width 0.32s ease;
+      opacity: 0.9;
+    }
+
+    .brand-link:hover {
+      transform: translateY(-1px) scale(1.015) rotateX(0.8deg) rotateY(-0.8deg);
+      opacity: 0.98;
+    }
+
+    .brand-link:hover::after {
+      width: 100%;
+    }
 
     .logo-mark {
       width: 32px;
@@ -61,10 +115,12 @@
       align-items: center;
       justify-content: center;
       background: radial-gradient(circle at 20% 0%, #38bdf8, #1d283a 45%, #020617 100%);
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+      background-size: 200% 200%;
+      box-shadow: 0 0 18px rgba(15, 23, 42, 0.9);
       font-size: 18px;
       font-weight: 600;
       color: #e5f2ff;
+      animation: logoGlow 6s ease-in-out infinite;
     }
 
     .brand-title {
@@ -102,9 +158,13 @@
       transition: width 0.18s ease;
     }
 
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-    main { flex: 1; }
+    main {
+      flex: 1;
+    }
 
     .hero {
       max-width: 1100px;
@@ -217,7 +277,10 @@
       margin-bottom: 14px;
     }
 
-    .card-title { font-size: 13px; color: #e5e7eb; }
+    .card-title {
+      font-size: 13px;
+      color: #e5e7eb;
+    }
 
     .badge {
       font-size: 11px;
@@ -292,7 +355,9 @@
     }
 
     @media (max-width: 850px) {
-      .two-col { grid-template-columns: minmax(0, 1fr); }
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     .card {
@@ -302,7 +367,10 @@
       padding: 16px 16px 14px;
     }
 
-    .card h3 { font-size: 13px; margin-bottom: 6px; }
+    .card h3 {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
 
     .card p {
       font-size: 12px;
@@ -330,7 +398,9 @@
     }
 
     @media (max-width: 850px) {
-      .contact-grid { grid-template-columns: minmax(0, 1fr); }
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     form {
@@ -344,7 +414,8 @@
       color: #9ca3af;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 8px 10px;
       border-radius: 8px;
@@ -354,7 +425,10 @@
       font-size: 12px;
     }
 
-    textarea { min-height: 80px; resize: vertical; }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
 
     footer {
       border-top: 1px solid rgba(31, 41, 55, 0.8);
@@ -363,22 +437,75 @@
       color: #6b7280;
       text-align: center;
     }
+
+    /* Premium hover shimmer on brand title */
+    .brand-link:hover .brand-title {
+      background: linear-gradient(
+        95deg,
+        #ffffff,
+        #dff7ff,
+        #c6ecff,
+        #ffffff
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: shimmer 1.8s linear infinite;
+    }
+
+    /* Shimmer animation */
+    @keyframes shimmer {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: -200% center;
+      }
+    }
+
+    /* Ambient idle glow + subtle gradient motion for logo */
+    @keyframes logoGlow {
+      0% {
+        background-position: 0% 0%;
+        box-shadow: 0 0 18px rgba(15, 23, 42, 0.9);
+        transform: translateZ(0);
+      }
+      35% {
+        background-position: 40% 20%;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+        transform: translateZ(0);
+      }
+      50% {
+        background-position: 60% 40%;
+        box-shadow: 0 0 26px rgba(56, 189, 248, 0.55);
+        transform: translateZ(1px);
+      }
+      75% {
+        background-position: 30% 10%;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+        transform: translateZ(0);
+      }
+      100% {
+        background-position: 0% 0%;
+        box-shadow: 0 0 18px rgba(15, 23, 42, 0.9);
+        transform: translateZ(0);
+      }
+    }
   </style>
 </head>
 <body>
 <div class="page">
   <header>
-    <a href="https://summitfinancialanalytics.com/" style="text-decoration:none; color:inherit;">
-      <div class="nav-left">
-        <div class="logo-mark">S</div>
-        <div>
-          <div class="brand-title">Summit Financial Analytics</div>
-          <div class="brand-sub">Private Commercial Real Estate</div>
+    <div class="nav">
+      <a href="https://summitfinancialanalytics.com/" class="brand-link">
+        <div class="nav-left">
+          <div class="logo-mark">S</div>
+          <div>
+            <div class="brand-title">Summit Financial Analytics</div>
+            <div class="brand-sub">Private Commercial Real Estate</div>
+          </div>
         </div>
-      </div>
-    </a>
-
-      </div>
+      </a>
       <nav class="nav-links">
         <a href="#strategy">Strategy</a>
         <a href="#focus">Asset Focus</a>
@@ -452,8 +579,6 @@
       </div>
     </section>
 
-
-
     <!-- STRATEGY -->
     <section class="section" id="strategy">
       <h2 class="section-title">Investment Strategy</h2>
@@ -491,8 +616,6 @@
       </div>
     </section>
 
-
-
     <!-- ASSET FOCUS -->
     <section class="section" id="focus">
       <h2 class="section-title">Asset Focus</h2>
@@ -529,11 +652,7 @@
       </div>
     </section>
 
-
-
     <!-- BANKS & PARTNERS -->
-        <!-- BANKS & PARTNERS -->
-        <!-- BANKS & PARTNERS -->
     <section class="section" id="banks">
       <h2 class="section-title">Information for Banks &amp; Partners</h2>
       <p class="section-intro">
@@ -580,25 +699,34 @@
         For lenders and equity partners, a standard due diligence package can be prepared for each transaction. This
         typically includes:
       </div>
-      
-    <div class="card">
-          <h3>Risk &amp; Operations Notes</h3>
-          <p>
-            The company’s purpose is long-term asset protection and participation in identifiable, cash-flowing
-            real estate. Transactions are underwritten conservatively with attention to debt coverage, reserves,
-            and practical operating plans.
-          </p>
+      <div class="two-col">
+        <div class="card">
+          <h3>Property &amp; Financial Materials</h3>
           <ul>
-            <li>Income derived from ownership interests in commercial properties and related investment structures</li>
-            <li>No consumer lending, brokerage of securities, or speculative trading activity</li>
-            <li>Use of professional third-party property management where appropriate</li>
-            <li>Standard expenses include due diligence, legal, accounting, travel, and professional services</li>
+            <li>Executive summary of the asset and business plan</li>
+            <li>Rent roll and trailing financials (T-12 where available)</li>
+            <li>Pro forma projections with key assumptions highlighted</li>
+            <li>Debt service coverage and stress-testing scenarios</li>
+            <li>Photos, maps, and basic market or submarket overview</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Entity &amp; Transaction Documents</h3>
+          <ul>
+            <li>LLC organizational documents and good-standing evidence</li>
+            <li>Capital structure outline (GP/LP, equity and debt summary)</li>
+            <li>Sources and uses of funds for the transaction</li>
+            <li>Management and operations plan at the property level</li>
+            <li>Proposed timeline for closing and key milestones</li>
           </ul>
         </div>
       </div>
+
+      <p class="section-intro" style="margin-top:10px;font-size:11px;">
+        This site is informational only and does not constitute an offer to sell, or a solicitation of an offer to buy,
+        any security. Any investment opportunity is discussed privately, on a deal-specific basis, with qualified parties.
+      </p>
     </section>
-
-
 
     <!-- CONTACT -->
     <section class="section" id="contact">
