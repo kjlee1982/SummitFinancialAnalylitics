@@ -211,12 +211,12 @@
         <div class="logo-mark">S</div>
         <div>
           <div class="brand-title">Summit Financial Analytics</div>
-          <div class="brand-sub">Management Consulting & Advisory</div>
+          <div class="brand-sub">Private Commercial Real Estate</div>
         </div>
       </div>
       <nav class="nav-links">
         <a href="/">Home</a>
-        <a href="/#services">Services</a>
+        <a href="/#strategy">Strategy</a>
         <a href="/#banks">Banks &amp; Partners</a>
       </nav>
     </div>
@@ -230,6 +230,13 @@
         <p class="highlight">
           Your message has been submitted successfully.
         </p>
+
+        <!-- Summit Deal ID display (if present in URL) -->
+        <p id="deal-id-line" style="display:none;font-size:13px;color:#e5e7eb;">
+          Your Summit Deal ID:&nbsp;
+          <span id="deal-id-value" class="highlight"></span>
+        </p>
+
         <p>
           I’ll review what you shared and respond with next steps as soon as possible. In most cases,
           you can expect a reply within one business day.
@@ -246,8 +253,8 @@
           <button class="btn-primary" onclick="window.location.href='/'">
             Return to homepage
           </button>
-          <button class="btn-ghost" onclick="window.location.href='/#services'">
-            View services
+          <button class="btn-ghost" onclick="window.location.href='/share-a-deal.html'">
+            Submit another deal
           </button>
         </div>
       </div>
@@ -255,8 +262,24 @@
   </main>
 
   <footer>
-    Summit Financial Analytics LLC &middot; Management consulting & advisory &middot; All rights reserved.
+    Summit Financial Analytics LLC &middot; Private commercial real estate &middot; All rights reserved.
   </footer>
 </div>
+
+<script>
+  // Read ?deal=... from URL and show Summit Deal ID if present
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const dealId = params.get('deal');
+    if (!dealId) return;
+
+    const line = document.getElementById('deal-id-line');
+    const value = document.getElementById('deal-id-value');
+    if (line && value) {
+      value.textContent = dealId;
+      line.style.display = 'block';
+    }
+  })();
+</script>
 </body>
 </html>
