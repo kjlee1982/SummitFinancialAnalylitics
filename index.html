@@ -585,7 +585,8 @@
           </p>
 
           <!-- CONTACT FORM -->
-          <form action="https://formspree.io/f/mangrgwq" method="POST">
+          <form id="contact-form" action="https://formspree.io/f/mangrgwq" method="POST">
+
             <div>
               <label for="name">Name</label>
               <input id="name" name="name" type="text" placeholder="Your name" required />
@@ -614,6 +615,13 @@
             <div>
               <button type="submit" class="btn-primary">Send message</button>
             </div>
+
+            <div>
+             <button type="submit" class="btn-primary">Send message</button>
+            </div>
+
+<div id="form-status" style="margin-top:8px;font-size:11px;color:#9ca3af;"></div>
+
           </form>
         </div>
 
@@ -647,5 +655,48 @@
     Summit Financial Analytics LLC &middot; Management consulting & advisory &middot; All rights reserved.
   </footer>
 </div>
+
+  <script>
+  (function () {
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault(); // stop normal form submit
+
+      if (status) {
+        status.textContent = 'Sending...';
+      }
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // success → send them to thank-you page
+          window.location.href = '/thanks.html';
+        } else {
+          if (status) {
+            status.textContent = 'Something went wrong. Please try again or email me at kelanlee@summitfinancialanalytics.com.';
+          }
+        }
+      } catch (err) {
+        if (status) {
+          status.textContent = 'Network error. Please check your connection or email me directly at kelanlee@summitfinancialanalytics.com.';
+        }
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>
